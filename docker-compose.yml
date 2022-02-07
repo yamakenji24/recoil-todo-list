@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  front:
+    container_name: recoil-todo-front
+    build: './'
+    depends_on:
+      - recoil-todo-mysql
+    ports:
+      - '3000:3000'
+    restart: always
+  mysql:
+    container_name: recoil-todo-mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: prisma
+      MYSQL_ROOT_PASSWORD: prisma
+    volumes:
+      - 'mysql-data:/var/lib/mysql'
+    ports:
+      - '3306:3306'
+    restart: always
+
+volumes:
+  mysql-data:
