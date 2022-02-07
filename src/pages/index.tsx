@@ -1,9 +1,9 @@
 import { useRecoilState } from "recoil"
 import { ChangeEvent, useState } from "react"
-import { todoState } from "src/atoms"
+import { todoSelector } from "src/selector"
 
 export default function Home() {
-  const [todos, setTodos] = useRecoilState(todoState)
+  const [newTodo, setNewTodo] = useRecoilState(todoSelector)
   const [text, setText] = useState("")
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -11,14 +11,14 @@ export default function Home() {
   }
 
   const handleAddTodo = () => {
-    setTodos([...todos, text])
+    setNewTodo([...newTodo, text])
   }
 
   return (
     <div>
       <h2>TodoList</h2>
       <div>
-        {todos.map((todo, i) => (
+        {newTodo.map((todo, i) => (
           <div key={i}>{todo}</div>
         ))}
       </div>
