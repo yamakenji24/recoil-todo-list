@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const todoState = atom<string[]>({
-  key: "todoState",
+export const todoListState = atom<string[]>({
+  key: "todoListState",
   default: [],
 })

@@ -1,24 +1,26 @@
-import { useRecoilState } from "recoil"
+import { useRecoilValue, useSetRecoilState } from "recoil"
 import { ChangeEvent, useState } from "react"
-import { todoSelector } from "src/selector"
+import { todoListState } from "../atoms"
+import { useCreateDispatcher } from "src/dispatcher"
 
 export default function Home() {
-  const [newTodo, setNewTodo] = useRecoilState(todoSelector)
+  const todos = useRecoilValue(todoListState)
   const [text, setText] = useState("")
+  const dispatcher = useCreateDispatcher()
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
   }
 
   const handleAddTodo = () => {
-    setNewTodo([...newTodo, text])
+    dispatcher.addTodo(text)
   }
 
   return (
     <div>
       <h2>TodoList</h2>
       <div>
-        {newTodo.map((todo, i) => (
+        {todos.map((todo, i) => (
           <div key={i}>{todo}</div>
         ))}
       </div>
