@@ -1,11 +1,10 @@
-import { useRecoilValue } from "recoil";
 import { ChangeEvent, useState } from "react";
-import { todoListState } from "../atoms";
+import { todoSelectors } from "src/todo-state";
 import { useCreateDispatcher } from "src/dispatcher";
 
 export default function Home() {
-  const todos = useRecoilValue(todoListState);
   const [text, setText] = useState("");
+  const todos = todoSelectors.useGetTodoList();
   const dispatcher = useCreateDispatcher();
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
