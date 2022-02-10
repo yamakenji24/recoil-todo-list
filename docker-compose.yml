@@ -6,6 +6,8 @@ services:
     build: './'
     depends_on:
       - recoil-todo-mysql
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
     ports:
       - '3000:3000'
     restart: always

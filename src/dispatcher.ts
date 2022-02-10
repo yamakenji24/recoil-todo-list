@@ -5,7 +5,7 @@ let id = 0;
 
 export const useCreateDispatcher = () => {
   const addTodo = useRecoilCallback(({ set }) => (text: string) => {
-    const newTodo = {id, text};
+    const newTodo = {id, text, completed: false};
     set(todoListState, (oldTodos) => [...oldTodos, newTodo]);
     id += 1;
   }, []);

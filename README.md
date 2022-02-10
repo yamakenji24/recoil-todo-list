@@ -13,4 +13,5 @@ docker compose up
 ```
 npx prisma migrate dev --preview-feature --name init
 npx prisma db seed
+npx prisma generate
 ```
