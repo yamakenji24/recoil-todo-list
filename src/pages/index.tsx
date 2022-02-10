@@ -1,10 +1,9 @@
-import { ChangeEvent, useState } from "react";
-import { todoSelectors } from "src/todo-state";
+import { ChangeEvent, useState, Suspense } from "react";
 import { useCreateDispatcher } from "src/dispatcher";
+import { TodoList } from "src/components/TodoList";
 
 export default function Home() {
   const [text, setText] = useState("");
-  const todos = todoSelectors.useGetTodoList();
   const dispatcher = useCreateDispatcher();
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -18,11 +17,9 @@ export default function Home() {
   return (
     <div>
       <h2>TodoList</h2>
-      <div>
-        {todos.map((todo, i) => (
-          <Todo key={i} deleteTodo={dispatcher.deleteTodo} {...todo} />
-        ))}
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <TodoList deleteTodo={dispatcher.deleteTodo} />
+      </Suspense>
 
       <h2>新しいtodo</h2>
       <textarea
@@ -34,20 +31,3 @@ export default function Home() {
     </div>
   );
 }
-
-const Todo = ({ id, text, deleteTodo }: {
-  id: number;
-  text: string;
-  deleteTodo: (id: number) => void;
-}) => {
-  const handleDeleteTodo = () => {
-    deleteTodo(id)
-  };
-
-  return (
-    <div>
-      <p>{text}</p>
-      <button onClick={handleDeleteTodo}>削除</button>
-    </div>
-  );
-};
