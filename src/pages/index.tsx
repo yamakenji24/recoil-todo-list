@@ -18,7 +18,7 @@ export default function Home() {
     <div>
       <h2>TodoList</h2>
       <Suspense fallback={<div>Loading...</div>}>
-        <TodoList deleteTodo={dispatcher.deleteTodo} />
+        <TodoList deleteTodo={dispatcher.deleteTodo} updateTodo={dispatcher.updateTodo} />
       </Suspense>
 
       <h2>新しいtodo</h2>
