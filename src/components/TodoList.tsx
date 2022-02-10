@@ -1,38 +1,24 @@
 import { todoSelectors } from "src/todo-state";
+import { Todo } from "src/components/Todo";
 
 interface Props {
   deleteTodo: (id: number) => void;
+  updateTodo: (id: number, text: string) => void;
 }
 
-export const TodoList = ({ deleteTodo }: Props) => {
+export const TodoList = ({ deleteTodo, updateTodo }: Props) => {
   const todos = todoSelectors.useGetTodoList();
 
   return (
     <div>
       {todos.map((todo, i) => (
-        <Todo key={i} deleteTodo={deleteTodo} {...todo} />
+        <Todo
+          key={i}
+          deleteTodo={deleteTodo}
+          updateTodo={updateTodo}
+          {...todo}
+        />
       ))}
-    </div>
-  )
-};
-
-const Todo = ({
-  id,
-  text,
-  deleteTodo,
-}: {
-  id: number;
-  text: string;
-  deleteTodo: (id: number) => void;
-}) => {
-  const handleDeleteTodo = () => {
-    deleteTodo(id);
-  };
-
-  return (
-    <div>
-      <p>{text}</p>
-      <button onClick={handleDeleteTodo}>削除</button>
     </div>
   );
 };

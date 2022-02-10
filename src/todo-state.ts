@@ -1,4 +1,5 @@
 import { atom, selector, useRecoilValue } from "recoil";
+import { fetchTodoListAPI } from "./api";
 
 export interface TodoItem {
   id: number;
@@ -6,17 +7,11 @@ export interface TodoItem {
   completed: boolean;
 }
 
-const fetchTodoList = async (): Promise<TodoItem[]> => {
-  return await fetch("http://localhost:3000/api/todo").then((res) =>
-    res.json()
-  );
-};
-
 export const todoListState = atom<TodoItem[]>({
   key: "todoListState",
   default: selector({
     key: "initialTodoListState",
-    get: async () => await fetchTodoList(),
+    get: async () => await fetchTodoListAPI(),
   }),
 });
 
